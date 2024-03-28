@@ -7,7 +7,7 @@ import numpy as np
 import random
 import math
 
-L= 64
+L= 16
 Q=.42
 R=.5
 no_of_particles=0
@@ -67,59 +67,94 @@ def reaction(i,j):
     global repeat
     global no_of_reactions
     if(grid[i][j]>1):
-        # print(i,j)
         number_of_reaction = math.floor(grid[i][j]/2)
-        # print("No.of rxn: ", number_of_reaction)
         for c in range(number_of_reaction):
             type_of_reaction = getRandom()
             if(type_of_reaction<.5):
                 grid[i][j]+=1
                 no_of_particles+=1
-                # print("creation : ",no_of_particles)
             else:
                 grid[i][j]-=1
                 no_of_particles-=1
-                # print("annihilation : ",no_of_particles)
         number_of_topple = grid[i][j]
-        # print("no. f topples and coordinate value:" ,grid[i][j], number_of_topple)
         for b in range(int(number_of_topple)):
             diffusion(i,j)
         no_of_reactions=0    
-        # for i in range(L):
-            # for j in range(L):
-                # print(grid[i][j],end="\t")
-            # print()        
-        # print()
-        # print()
     no_of_reactions+=1
 
-N=1000
+N=1
 for i in range(L):
     for j in range(L):
         if(getRandom()>Q):
             grid[i][j]=1
             no_of_particles+=1
-#         print(grid[i][j], end="\t")
-#     print()        
-# print()
-# print()
-initial_particle= no_of_particles
-# print("Initial:", no_of_particles)
+        
+colors = ['blue', 'green', 'red', 'cyan', 'magenta', 'yellow', 'orange', 'purple']
+cmap =ListedColormap(colors)
+plt.figure(figsize=(100,100))
+for i in range(L):
+    for j in range(L):
+        color = colors[int(grid[i, j])]  
+        plt.scatter(j, i, color=color, s=100, edgecolor='black')
+
+plt.xlim(-1, L )
+plt.ylim(-1, L )
+
+legend_elements = [plt.Line2D([0], [0], marker='o', color='w', label='0', markerfacecolor='blue', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='1', markerfacecolor='green', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='2', markerfacecolor='red', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='3', markerfacecolor='cyan', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='4', markerfacecolor='magenta', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='5', markerfacecolor='yellow', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='6', markerfacecolor='orange', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='7', markerfacecolor='purple', markersize=10)]
+
+plt.legend(handles=legend_elements, loc='upper left', title='Value')
+
+
+plt.xlabel('X-coordinate')
+plt.ylabel('Y-coordinate')
+plt.title('2-D Grid')
+
+plt.grid(True)
+plt.show()
+
 for i in range(L):
     for j in range(L):
         diffusion(i,j)
-
-# for i in range(L):
-    # for j in range(L):
-        # print(grid[i][j], end="\t")
-    # print()    
 plt.figure(figsize=(100,100))
-# print()
-# print()
+
+for i in range(L):
+    for j in range(L):
+        color = colors[int(grid[i, j])]  
+        plt.scatter(j, i, color=color, s=100, edgecolor='black')
+
+
+plt.xlim(-1, L )
+plt.ylim(-1, L )
+
+legend_elements = [plt.Line2D([0], [0], marker='o', color='w', label='0', markerfacecolor='blue', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='1', markerfacecolor='green', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='2', markerfacecolor='red', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='3', markerfacecolor='cyan', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='4', markerfacecolor='magenta', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='5', markerfacecolor='yellow', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='6', markerfacecolor='orange', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='7', markerfacecolor='purple', markersize=10)]
+
+
+plt.legend(handles=legend_elements, loc='upper left', title='Value')
+
+
+plt.xlabel('X-coordinate')
+plt.ylabel('Y-coordinate')
+plt.title('2-D Grid')
+
+plt.grid(True)
+plt.show()
 
 
 for k in range(N):
-    # print("iteration number: ", k)
     for i in range(L):
         for j in range(L):
             reaction(i,j)
@@ -127,23 +162,40 @@ for k in range(N):
         for i in range(L):
             for j in range(L):
                 diffusion(i,j)
-    # print("final : ", no_of_particles)
-    # for i in range(L):
-        # for j in range(L):
-            # print(grid[i][j], end="\t")
-        # print()    
+    plt.figure(figsize=(100,100))
+
+    for i in range(L):
+        for j in range(L):
+            color = colors[int(grid[i, j])]
+            plt.scatter(j, i, color=color, s=100, edgecolor='black')
+            
+    plt.xlim(-1, L )
+    plt.ylim(-1, L )
+
+    legend_elements = [plt.Line2D([0], [0], marker='o', color='w', label='0', markerfacecolor='blue', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='1', markerfacecolor='green', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='2', markerfacecolor='red', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='3', markerfacecolor='cyan', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='4', markerfacecolor='magenta', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='5', markerfacecolor='yellow', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='6', markerfacecolor='orange', markersize=10),
+                   plt.Line2D([0], [0], marker='o', color='w', label='7', markerfacecolor='purple', markersize=10)]
+
+    plt.legend(handles=legend_elements, loc='upper left', title='Value')
+
+
+    plt.xlabel('X-coordinate')
+    plt.ylabel('Y-coordinate')
+    plt.title('2-D Grid')
+
+    
+    plt.grid(True)
+    plt.show() 
+
+
     plt.scatter(k,no_of_particles/repeat,color= "green")
-    # print() 
-    # print()
 
-# colors = ['blue', 'green', 'yellow', 'red']
-# cmap = ListedColormap(colors)
-# # Plot the matrix as a heatmap using Seaborn
-# sns.heatmap(matrix, cmap=cmap)
-
-# Add title and labels
-plt.title('2D Matrix Visualization')
-plt.xlabel('# Iterations')
-plt.ylabel('particle density')
-# Show the plot
-plt.show()
+    plt.title('2D Matrix Visualization')
+    plt.xlabel('# Iterations')
+    plt.ylabel('particle density')
+    plt.show()
