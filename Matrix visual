@@ -1,0 +1,29 @@
+import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
+import final
+
+colors = ['blue', 'green', 'red', 'cyan', 'magenta', 'yellow', 'orange', 'purple']
+cmap =ListedColormap(colors)        
+
+for i in range(final.size_of_simulation_matrix):
+    for j in range(final.size_of_simulation_matrix):
+        color = colors[int(final.grid[i, j])]
+        plt.scatter(j, i, color=color, s=100, edgecolor='black')
+                
+plt.xlim(-1, final.size_of_simulation_matrix )
+plt.ylim(-1, final.size_of_simulation_matrix )
+
+legend_elements = [plt.Line2D([0], [0], marker='o', color='w', label='0', markerfacecolor='blue', markersize=10),
+                    plt.Line2D([0], [0], marker='o', color='w', label='1', markerfacecolor='green', markersize=10),
+                    plt.Line2D([0], [0], marker='o', color='w', label='2', markerfacecolor='red', markersize=10),
+                    plt.Line2D([0], [0], marker='o', color='w', label='3', markerfacecolor='cyan', markersize=10),
+                    plt.Line2D([0], [0], marker='o', color='w', label='4', markerfacecolor='magenta', markersize=10),
+                    plt.Line2D([0], [0], marker='o', color='w', label='5', markerfacecolor='yellow', markersize=10),]
+plt.legend(handles=legend_elements, loc='upper left', title='Value')
+
+
+plt.xlabel('X-coordinate')
+plt.ylabel('Y-coordinate')
+plt.title('Steady State reached again')
+plt.grid(True)
+plt.show() 
